@@ -1,5 +1,7 @@
 # [SQUARE](https://www.github.com/lafelabs/square)
 
+## [LOCALHOST](http://localhost/)
+
 A 4 INCH SQUARE OF CARDBOARD!
 
 FREE STUFF!
