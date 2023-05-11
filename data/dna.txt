@@ -1,0 +1,39 @@
+{
+    "html": [
+        "README.md",
+        "composting.html",
+        "gardening.html",
+        "index.html",
+        "localart.html",
+        "localauthors.html",
+        "localbooks.html",
+        "localmusic.html",
+        "mechanics.html",
+        "mycology.html",
+        "qrcode-page.html",
+        "qrcode.html",
+        "readme.html",
+        "readmeeditor.html",
+        "trashmagic.css",
+        "trashmagic.html",
+        "trashmagic.js",
+        "urbanfarming.html",
+        "webdestroyer.html",
+        "webeditor.html",
+        "zines.html"
+    ],
+    "data": [
+        "dna.txt"
+    ],
+    "php": [
+        "deletefile.txt",
+        "dir.txt",
+        "dnagenerator.txt",
+        "editor.txt",
+        "fileloader.txt",
+        "filesaver.txt",
+        "mkdir.txt",
+        "replicator.txt",
+        "text2php.txt"
+    ]
+}
