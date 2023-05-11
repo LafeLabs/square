@@ -1,26 +1,15 @@
 {
     "html": [
         "README.md",
-        "composting.html",
-        "gardening.html",
         "index.html",
-        "localart.html",
-        "localauthors.html",
-        "localbooks.html",
-        "localmusic.html",
-        "mechanics.html",
-        "mycology.html",
         "qrcode-page.html",
         "qrcode.html",
         "readme.html",
         "readmeeditor.html",
         "trashmagic.css",
-        "trashmagic.html",
         "trashmagic.js",
-        "urbanfarming.html",
         "webdestroyer.html",
-        "webeditor.html",
-        "zines.html"
+        "webeditor.html"
     ],
     "data": [
         "dna.txt"
