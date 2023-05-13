@@ -13,6 +13,8 @@ $dna = json_decode($dnaraw);
 
 mkdir("data");
 mkdir("php");
+mkdir("trashmagic");
+mkdir("iconsymbols");
 
 copy("https://raw.githubusercontent.com/LafeLabs/square/main/php/replicator.txt","replicator.php");
 
@@ -37,6 +39,12 @@ foreach($dna->php as $value){
 
 }
     
+
+foreach($dna->iconsymbols as $value){
+    
+    copy($baseurl."iconsymbols/".$value,"iconsymbols/".$value);
+
+}
 
 
 ?>

@@ -22,7 +22,7 @@
     <!--Stop Google:-->
     <META NAME="robots" CONTENT="noindex,nofollow">
 <!--geometron javascript library-->
-    <script src="jscode/geometron.js"></script>
+    <script src="geometron.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
 </head>
 <body>
@@ -374,13 +374,13 @@ function loadimage(){
 }
 
 document.getElementById("loadbutton").onclick = function(){
-    robotfeed = JSON.parse(document.getElementById("textio").value);
+    iconfeed = JSON.parse(document.getElementById("textio").value);
     loadfeed();
-    saverobotfeed();
+    saveiconfeed();
 }
 
 document.getElementById("savebutton").onclick = function(){
-    pushcoin();
+    pushicon();
 }
 
 
@@ -472,7 +472,7 @@ function loadlocalimagefeed(){
             var newuploadbox = document.createElement("DIV");
             newuploadbox.classList.add("uploadbox");
             var newimg = document.createElement("IMG");
-            newimg.src = "images/" + uploadImages[index];
+            newimg.src = "trashmagic/" + uploadImages[index];
             newimg.classList.add("uploadimage");
             newimg.classList.add("button");
             newuploadbox.appendChild(newimg);
@@ -495,7 +495,7 @@ function loadlocalimagefeed(){
             newimg.classList.add("deletebutton");
             newimg.onclick = function(){
                 var imageurl =this.parentElement.getElementsByClassName("uploadimage")[0].src; 
-                var imagename = "images/" + imageurl.split("images/")[1];
+                var imagename = "trashmagic/" + imageurl.split("trashmagic/")[1];
                 var httpc = new XMLHttpRequest();
                 var url = "deletefile.php";         
                 httpc.open("POST", url, true);
@@ -512,79 +512,69 @@ function loadlocalimagefeed(){
 
 
 
-function savecoin(){
+function saveicon(){
     var httpc = new XMLHttpRequest();
     httpc.open("POST", "filesaver.php", true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    httpc.send("data="+encodeURIComponent(coin)+"&filename=data/coin.txt");//send text to filesaver.php
+    httpc.send("data="+encodeURIComponent(icon)+"&filename=data/icon.txt");//send text to filesaver.php
 }
 
 
-function pushcoin(){
+function pushicon(){
     
-    var httpcrobotfeed = new XMLHttpRequest();
-    httpcrobotfeed.onreadystatechange = function(){
+    var httpciconfeed = new XMLHttpRequest();
+    httpciconfeed.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            robotfeed = JSON.parse(this.responseText);
-            document.getElementById("textio").value = JSON.stringify(robotfeed,null,"    ");
+            iconfeed = JSON.parse(this.responseText);
+            document.getElementById("textio").value = JSON.stringify(iconfeed,null,"    ");
                 
             mainGVM.clean();
-            robotfeed.unshift(mainGVM.cleanGlyph);
+            iconfeed.unshift(mainGVM.cleanGlyph);
             var httpc = new XMLHttpRequest();
             httpc.open("POST", "filesaver.php", true);
             httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            httpc.send("data="+encodeURIComponent(JSON.stringify(robotfeed,null,"  "))+"&filename=data/robotfeed.txt");//send text to filesaver.php
+            httpc.send("data="+encodeURIComponent(JSON.stringify(iconfeed,null,"  "))+"&filename=data/iconfeed.txt");//send text to filesaver.php
             
             loadfeed();            
 
         }
         
     };
-    httpcrobotfeed.open("GET", "fileloader.php?filename=data/robotfeed.txt", true);
-    httpcrobotfeed.send();
+    httpciconfeed.open("GET", "fileloader.php?filename=data/iconfeed.txt", true);
+    httpciconfeed.send();
     
 }
 
-var httpcHypercube = new XMLHttpRequest();
-httpcHypercube.onreadystatechange = function(){
+spellGVM.importbytecode(hypercube);
+mainGVM.importbytecode(hypercube);    
+for(var index = 040;index < 0177;index++){
+    mainGVM.hypercube[index] = "0177,";
+}
+mainGVM.importbytecode(robotkeys);
+loadcontroltable();
+var httpcicon = new XMLHttpRequest();
+httpcicon.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
-        hypercube = JSON.parse(this.responseText);
-        spellGVM.importbytecode(hypercube);
-        mainGVM.importbytecode(hypercube);    
-        for(var index = 040;index < 0177;index++){
-            mainGVM.hypercube[index] = "0177,";
-        }
-        mainGVM.importbytecode(robotkeys);
-        loadcontroltable();
-        var httpcCoin = new XMLHttpRequest();
-        httpcCoin.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
-                coin = this.responseText;
-                drawmain();
-            }
-        };
-        httpcCoin.open("GET", "fileloader.php?filename=data/coin.txt", true);
-        httpcCoin.send();
-        var httpcFeed = new XMLHttpRequest();
-        httpcFeed.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
-                robotfeed = JSON.parse(this.responseText);
-                loadfeed();
-                document.getElementById("textio").value = JSON.stringify(robotfeed,null,"  ");
-            }
-        };
-        httpcFeed.open("GET", "fileloader.php?filename=data/robotfeed.txt", true);
-        httpcFeed.send();
-
-  
+        icon = this.responseText;
+        drawmain();
     }
-        
 };
-httpcHypercube.open("GET", "fileloader.php?filename=data/hypercube.txt", true);
-httpcHypercube.send();
+httpcicon.open("GET", "fileloader.php?filename=data/icon.txt", true);
+httpcicon.send();
+var httpcFeed = new XMLHttpRequest();
+httpcFeed.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+        iconfeed = JSON.parse(this.responseText);
+        loadfeed();
+        document.getElementById("textio").value = JSON.stringify(iconfeed,null,"  ");
+    }
+};
+httpcFeed.open("GET", "fileloader.php?filename=data/iconfeed.txt", true);
+httpcFeed.send();
+
 
 function drawmain(){
-    mainGVM.glyph = coin + "0207,";
+    mainGVM.glyph = icon + "0207,";
     mainGVM.clean();
     mainGVM.drawGlyph(mainGVM.glyph);
     mainGVM.actionSequence("0300,0337,0337,0342,0334,0342,0334,343,0334,0342,0341,");    
@@ -634,8 +624,8 @@ function loadcontroltable(){
                     mainGVM.clean();
                     spellGVM.spellGlyph(mainGVM.glyph);
                     document.getElementById("spellinput").value = mainGVM.cleanGlyph;
-                    coin = mainGVM.cleanGlyph;
-                    savecoin();
+                    icon = mainGVM.cleanGlyph;
+                    saveicon();
                     mainGVM.actionSequence("0300,0337,0337,0342,0334,0342,0334,343,0334,0342,0341,"); 
 
                 }
@@ -651,7 +641,7 @@ feedlinkwidth = 80;
 function loadfeed(){
     gvmArray = [];
     document.getElementById("iconfeed").innerHTML = "";
-    for(var index = 0;index < robotfeed.length;index++){
+    for(var index = 0;index < iconfeed.length;index++){
         var newdiv = document.createElement("span");
         var newcan = document.createElement("CANVAS");
         newcan.className = "feedcan";
@@ -669,11 +659,11 @@ function loadfeed(){
         var newGVM = new GVM(newcan,feedlinkwidth,feedlinkwidth);
         newGVM.hypercube = mainGVM.hypercube;
         gvmArray.push(newGVM);
-        newGVM.drawGlyph(robotfeed[index]);    
+        newGVM.drawGlyph(iconfeed[index]);    
 
 
         var datadiv = document.createElement("DIV");
-        datadiv.innerHTML = robotfeed[index];
+        datadiv.innerHTML = iconfeed[index];
         datadiv.className = "data";
         newdiv.appendChild(datadiv);
         newdiv.onclick = function(){
@@ -684,8 +674,8 @@ function loadfeed(){
             spellGVM.spellGlyph(mainGVM.glyph);    
             mainGVM.clean();
             document.getElementById("spellinput").value = mainGVM.cleanGlyph;
-            coin = mainGVM.cleanGlyph;
-            savecoin();
+            icon = mainGVM.cleanGlyph;
+            saveicon();
             
         }
         
@@ -701,14 +691,14 @@ function loadfeed(){
             var thisindex = parseInt(this.id.substring(2));
 
             var tempfeed = [];
-            for(var robotindex = 0;robotindex < robotfeed.length;robotindex++){
+            for(var robotindex = 0;robotindex < iconfeed.length;robotindex++){
                 if(robotindex != thisindex){
-                    tempfeed.push(robotfeed[robotindex]);
+                    tempfeed.push(iconfeed[robotindex]);
                 }
             }
-            robotfeed = tempfeed;    
+            iconfeed = tempfeed;    
             this.parentElement.parentElement.removeChild(this.parentElement);
-            saverobotfeed();
+            saveiconfeed();
             loadfeed();
         }
         
@@ -718,12 +708,12 @@ function loadfeed(){
 
 
 
-function saverobotfeed(){
+function saveiconfeed(){
     var httpc = new XMLHttpRequest();
     httpc.open("POST", "filesaver.php", true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    httpc.send("data="+encodeURIComponent(JSON.stringify(robotfeed,null,"  "))+"&filename=data/robotfeed.txt");//send text to filesaver.php
-    document.getElementById("textio").value = JSON.stringify(robotfeed,null,"  ");    
+    httpc.send("data="+encodeURIComponent(JSON.stringify(iconfeed,null,"  "))+"&filename=data/iconfeed.txt");//send text to filesaver.php
+    document.getElementById("textio").value = JSON.stringify(iconfeed,null,"  ");    
 }
 
 
@@ -747,8 +737,8 @@ document.getElementById("actioninput").onkeypress = function(a) {
         this.value = "";
         mainGVM.clean();
         document.getElementById("spellinput").value = mainGVM.cleanGlyph;
-        coin = mainGVM.cleanGlyph;
-        savecoin();
+        icon = mainGVM.cleanGlyph;
+        saveicon();
     }
 
 }
@@ -789,8 +779,8 @@ document.getElementById("actioninput").onkeydown = function(a) {
     document.getElementById("spellinput").value = mainGVM.cleanGlyph;
     mainGVM.clean();
         mainGVM.actionSequence("0300,0337,0337,0342,0334,0342,0334,343,0334,0342,0341,");    
-    coin = mainGVM.cleanGlyph;
-    savecoin();
+    icon = mainGVM.cleanGlyph;
+    saveicon();
     
 }
 
@@ -818,8 +808,8 @@ document.getElementById("modeindicator").onclick = function(){
 
 document.getElementById("spellinput").onchange = function(){
     
-    coin = this.value;
-    savecoin();
+    icon = this.value;
+    saveicon();
     drawmain();
 }
 
@@ -828,14 +818,14 @@ document.getElementById("spellinput").onchange = function(){
 function neworder(){
     
     var datafeed = document.getElementById("iconfeed").getElementsByClassName("data");
-    newrobotfeed = [];
+    newiconfeed = [];
     
     for(var index = 0;index < datafeed.length;index++){
-        newrobotfeed.push(datafeed[index].innerHTML);
+        newiconfeed.push(datafeed[index].innerHTML);
     }
-    robotfeed  = newrobotfeed;
+    iconfeed  = newiconfeed;
     loadfeed();
-    saverobotfeed();
+    saveiconfeed();
 
 }
 

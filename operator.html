@@ -186,7 +186,7 @@ THREE.STLExporter.prototype = {
 
 };
 </script>
-    <script src="jscode/geometron.js"></script>
+    <script src="geometron.js"></script>
 
 </head>
 <body>    
@@ -218,8 +218,6 @@ THREE.STLExporter.prototype = {
 <div style = "display:none" id  = "pagebox"><canvas id = "pagecanvas"></canvas></div>
 
 <div style = "display:none" id  = "steniclbox"><canvas id = "stencilcanvas"></canvas></div>
-
-<textarea id = "arduinocode"></textarea>
 
 
 <table id = "glyphinputtable">
@@ -435,10 +433,7 @@ mainsize = 400;
 if(innerWidth > innerHeight){
     mainsize = innerHeight*0.5 - 50;
     document.getElementById("feed").style.top = (mainsize).toString() + "px";
-  //  document.getElementById("feed").style.width = (innerWidth).toString() + "px";
-//    document.getElementById("arduinocode").style.right = (mainsize + 20).toString() + "px";
- //   document.getElementById("arduinocode").style.height = (200).toString() + "px";
- //   document.getElementById("arduinocode").style.width = (0.5*(innerWidth - mainsize - 100)).toString() + "px";
+
 
 
 }
@@ -469,41 +464,35 @@ var stencilGVM = new GVM(document.getElementById("stencilcanvas"),600,600);
 
 gvmArray = [];
 
-robotfeed = [];
-var httpcHypercube = new XMLHttpRequest();
-httpcHypercube.onreadystatechange = function(){
+iconfeed = [];
+
+mainGVM.importbytecode(hypercube);    
+
+pageGVM.importbytecode(hypercube);    
+pageGVM.hypercube[0221] = "0320,0370,0331,0333,0200,0336,0330,0332,0336,0336,0210,0210,0220,0371,";
+pageGVM.hypercube[0222] = "0221,0333,0221,0333,0221,0333,0221,0333,0221,0331,0332,0332,0332,0332,";
+pageGVM.hypercube[0223] = "0222,0222,0222,0222,0222,0222,0222,";
+
+stencilGVM.importbytecode(hypercube);    
+stencilGVM.hypercube[0500] = "0336,0336,0336,0330,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
+stencilGVM.hypercube[0501] = "0336,0336,0336,0331,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
+stencilGVM.hypercube[0502] = "0336,0336,0336,0332,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
+stencilGVM.hypercube[0503] = "0336,0336,0336,0333,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
+
+
+
+var httpcFeed = new XMLHttpRequest();
+httpcFeed.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
-        hypercube = JSON.parse(this.responseText);
-        mainGVM.importbytecode(hypercube);    
-        
-        pageGVM.importbytecode(hypercube);    
-        pageGVM.hypercube[0221] = "0320,0370,0331,0333,0200,0336,0330,0332,0336,0336,0210,0210,0220,0371,";
-        pageGVM.hypercube[0222] = "0221,0333,0221,0333,0221,0333,0221,0333,0221,0331,0332,0332,0332,0332,";
-        pageGVM.hypercube[0223] = "0222,0222,0222,0222,0222,0222,0222,";
-
-        stencilGVM.importbytecode(hypercube);    
-        stencilGVM.hypercube[0500] = "0336,0336,0336,0330,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
-        stencilGVM.hypercube[0501] = "0336,0336,0336,0331,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
-        stencilGVM.hypercube[0502] = "0336,0336,0336,0332,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
-        stencilGVM.hypercube[0503] = "0336,0336,0336,0333,0336,0336,0331,0333,0337,0204,0336,0330,0332,0337,0337,0337,0337,0337,";
-
-
-        
-        var httpcFeed = new XMLHttpRequest();
-        httpcFeed.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
-                robotfeed = JSON.parse(this.responseText);
-                document.getElementById("textio").value = this.responseText;
-                loadfeed();
-            }
-        };
-        httpcFeed.open("GET", "fileloader.php?filename=data/robotfeed.txt", true);
-        httpcFeed.send();
-
+        iconfeed = JSON.parse(this.responseText);
+        document.getElementById("textio").value = this.responseText;
+        loadfeed();
     }
 };
-httpcHypercube.open("GET", "fileloader.php?filename=data/hypercube.txt", true);
-httpcHypercube.send();
+
+httpcFeed.open("GET", "fileloader.php?filename=data/iconfeed.txt", true);
+httpcFeed.send();
+
 
 
 
@@ -519,23 +508,14 @@ httpc11.open("GET", "fileloader.php?filename=data/mainfeed.txt", true);
 httpc11.send();
 */
 
-//load data/arduinocode.txt
-var httpc = new XMLHttpRequest();
-httpc.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        arduinocode = this.responseText;
-        document.getElementById("arduinocode").value = "char coin[] = \"\";\n\n" + arduinocode;
-    };
-}
-httpc.open("GET", "fileloader.php?filename=data/arduinocodexyz.txt", true);
-httpc.send();
+
 
 document.getElementById("htmlinput").value = "";
 
 function loadfeed(){
     gvmArray = [];
     document.getElementById("feed").innerHTML = "";
-    for(var index = 0;index < robotfeed.length;index++){
+    for(var index = 0;index < iconfeed.length;index++){
         var newdiv = document.createElement("span");
         var newcan = document.createElement("CANVAS");
         newcan.className = "feedcan";
@@ -548,10 +528,10 @@ function loadfeed(){
         var newGVM = new GVM(newcan,feedlinkwidth,feedlinkwidth);
         newGVM.hypercube = mainGVM.hypercube;
         gvmArray.push(newGVM);
-        newGVM.drawGlyph(robotfeed[index]);    
+        newGVM.drawGlyph(iconfeed[index]);    
         
         var datadiv = document.createElement("DIV");
-        datadiv.innerHTML = robotfeed[index];
+        datadiv.innerHTML = iconfeed[index];
         datadiv.className = "data";
         newdiv.appendChild(datadiv);
         newdiv.onclick = function(){
@@ -562,7 +542,8 @@ function loadfeed(){
             coin = glyph;
             document.getElementById("letterinput").value = bytecode2ascii(glyph);
             document.getElementById("htmlinput").value = "<img src = \"" + mainGVM.pngcode() + "\"/>";
-            document.getElementById("arduinocode").value = "char coin[] = \"" + bytecode2ascii(glyph) + "\";\n\n" + arduinocode;
+
+
                         
             pageGVM.hypercube[0220] = glyph;
             pageGVM.drawGlyph("0300,0223,");
@@ -580,12 +561,12 @@ function loadfeed(){
             var thisindex = parseInt(this.id.substring(2));
 
             var tempfeed = [];
-            for(var robotindex = 0;robotindex < robotfeed.length;robotindex++){
+            for(var robotindex = 0;robotindex < iconfeed.length;robotindex++){
                 if(robotindex != thisindex){
-                    tempfeed.push(robotfeed[robotindex]);
+                    tempfeed.push(iconfeed[robotindex]);
                 }
             }
-            robotfeed = tempfeed;    
+            iconfeed = tempfeed;    
             this.parentElement.parentElement.removeChild(this.parentElement);
             saveiconfeed();
             loadfeed();
@@ -671,24 +652,18 @@ function saveiconfeed(){
     var httpc = new XMLHttpRequest();
     httpc.open("POST", "filesaver.php", true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    httpc.send("data="+encodeURIComponent(JSON.stringify(robotfeed,null,"  "))+"&filename=data/robotfeed.txt");//send text to filesaver.php
+    httpc.send("data="+encodeURIComponent(JSON.stringify(iconfeed,null,"  "))+"&filename=data/iconfeed.txt");//send text to filesaver.php
         
 }
 
 
 document.getElementById("importbutton").onclick = function(){
-    robotfeed = JSON.parse(document.getElementById("textio").value);
+    iconfeed = JSON.parse(document.getElementById("textio").value);
     loadfeed();
     saveiconfeed();
 }
 
-/*
-document.getElementById("glyphinput").onchange = function(){
-    robotfeed.unshift(this.value);
-    loadfeed();
-    saveiconfeed();
-}
-*/
+
 
 function savepage(){
     var httpc2 = new XMLHttpRequest();
@@ -790,17 +765,6 @@ table .button{
 #feed canvas{
     display:inline;
 }
-#arduinocode{
-    position:absolute;
-    border:solid;
-    border-width:10px;
-    border-color:#00878F;
-    font-family:courier;
-    right:0px;
-    bottom:0px;
-    width:40%;
-    height:95px;
-}
 #textio{
     font-family:courier;
     position:Absolute;
@@ -866,9 +830,7 @@ table .button{
         bottom:110px;
         top:320px;
     }
-    #arduinocode{
 
-    }
     #glyphinputtable{
         top:4em;
     }
@@ -879,9 +841,7 @@ table .button{
         bottom:0px;
         bottom:120px;
     }
-    #arduinocode{
-        
-    }
+
     #textio{
         
     }
