@@ -17,6 +17,13 @@ TRASH MAGIC!
 ![](https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/sloanslakedotart.png)
 
 
+
+### ZINE
+
+![](https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/zine.png)
+
+### TRASH MAGIC SERVER
+
 TO REPLICATE THE TRASH MAGIC SERVER, GET A COMPUTER FROM THE TRASH AND WIPE THE HARD DRIVE AND INSTALL [UBUNTU](https://ubuntu.com/desktop) OR SOME OTHER KIND OF LINUX.  THEN REPLICATE THE TRASH MAGIC SERVER BY INSTALLING [APACHE](https://www.apache.org/) AND [PHP](https://www.php.net/), COPYING AND RUNNING THE REPLICATOR SCRIPT [REPLICATOR.PHP](https://github.com/LafeLabs/square/blob/main/replicator.php)!  
 
 ```
