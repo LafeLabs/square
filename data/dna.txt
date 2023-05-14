@@ -16,6 +16,7 @@
         "webeditor.html"
     ],
     "data": [
+        "alignimage.txt",
         "dna.txt",
         "icon.txt",
         "iconfeed.txt",
