@@ -20,7 +20,7 @@ TRASH MAGIC!
 
 ### ZINE
 
-![](https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/zine.png)
+![](https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/minizine2.png)
 
 ### TRASH MAGIC SERVER
 
