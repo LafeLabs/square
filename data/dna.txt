@@ -2,6 +2,7 @@
     "html": [
         "README.md",
         "artist.html",
+        "fashionquest.html",
         "geometron.js",
         "icon-vr.html",
         "index.html",

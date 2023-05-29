@@ -17,6 +17,7 @@ TRASH MAGIC!
 ![](https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/sloanslakedotart.png)
 
 
+![](https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/squareflag.png)
 
 ### ZINE
 
