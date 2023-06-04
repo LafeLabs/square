@@ -4,6 +4,7 @@
         "artist.html",
         "fashionquest.html",
         "geometron.js",
+        "glyph.txt",
         "icon-vr.html",
         "index.html",
         "operator.html",
