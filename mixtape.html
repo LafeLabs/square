@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="app" style="height: 100vh">
+        <!-- Webamp will attempt to center itself within this div -->
+    </div>
+    
+    <!--https://webamp.org/ has the information on web amp-->
+    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
+    <script>
+        const Webamp = window.Webamp;
+        const webamp = new Webamp({
+            initialTracks: [
+                {
+                    metaData: {
+                        artist: "DJ Mike Llama",
+                        title: "Llama Whippin' Intro"
+                    },
+                    // NOTE: Your audio file must be served from the same domain as your HTML
+                    // file, or served with permissive CORS HTTP headers:
+                    // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+                    url: "https://cdn.jsdelivr.net/gh/captbaritone/webamp@43434d82cfe0e37286dbbe0666072dc3190a83bc/mp3/llama-2.91.mp3",
+                    duration: 5.322286
+                }
+            ],
+        });
+
+        // Returns a promise indicating when it's done loading.
+        webamp.renderWhenReady(document.getElementById('app'));
+        
+
+/*
+webamp.appendTracks([
+    {url: 'https://archive.org/download/261MortiisKeiserAvEnDimensjonUkjentRemastered/204%20-%20Midnight%20Syndicate%20-%20Ride%20to%20Destiny.mp3'},
+    {url: 'https://archive.org/download/261MortiisKeiserAvEnDimensjonUkjentRemastered/203%20-%20Midnight%20Syndicate%20-%20Troubled%20Times.mp3'},
+    {url: 'https://archive.org/download/261MortiisKeiserAvEnDimensjonUkjentRemastered/211%20-%20Midnight%20Syndicate%20-%20Craft%20of%20the%20Wizard.mp3'}
+]);
+*/
+
+
+mixtapefolder = "mixtape";//make this the name of the folder with the songs in it
+
+
+files = [];
+var httpcimages = new XMLHttpRequest();
+httpcimages.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        files = JSON.parse(this.responseText);
+        tracks = [];
+        for(var index = 0;index < files.length;index++){
+            var track = {};
+            track.url =  mixtapefolder + "/" + files[index];
+            tracks.push(track);
+        }
+        webamp.appendTracks(tracks);
+    }
+};
+httpcimages.open("GET", "dir.php?filename=" + mixtapefolder, true);
+httpcimages.send();
+
+
+    </script>
+</body>
+<style>
+    body{
+        background-color:black;
+    }
+    
+</style>
+</html>
