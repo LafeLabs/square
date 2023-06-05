@@ -3,15 +3,32 @@
 
 <head>
     <meta charset="utf-8" />
+        <!--https://webamp.org/ has the information on web amp-->
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
+       <script src = "trashmagic.js"></script>
+   <link rel="stylesheet" href="trashmagic.css">
+
 </head>
 
 <body>
-    <div id="app" style="height: 100vh">
+    <div id = "mainscroll">
+    <div id="app" >
         <!-- Webamp will attempt to center itself within this div -->
     </div>
-    
-    <!--https://webamp.org/ has the information on web amp-->
-    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
+
+        <h1>TRASH MAGIC MIX TAPE</h1>
+        
+        
+        <p>
+            WELCOME TO TRASH MAGIC! WE WILL BUILD A NEW WORLD OUT OF SELF-REPLICATING MEDIA MADE FROM TRASH!  TELL THE STORY OF THE ALBUM AND THE ARTISTS!  TELL PEOPLE WHY THEY SHOULD LISTEN TO YOUR MUSIC AND SUPPORT YOUR WORK!  LINK TO SOCIALS! LINK TO PAYMENT!  ADD ALBUM COVER ART!  MAKE A LINK FROM A PUBLIC PAGE TO THE PRIVATE SERVER!  MAKE A QR CODE FOR USE LIVE! TO SHARE A MIX TAPE WITH OTHER ARTISTS, FORM A COOPERATIVE, POST A LINK TO PAY THE GROUP, DISPERSE FUNDS TO THE ARTISTS!  
+        </p>
+        
+        <a href = "index.html">HOME</a>
+        
+        <div id = "qrcode"></div>
+
+    </div>
     <script>
         const Webamp = window.Webamp;
         const webamp = new Webamp({
@@ -64,12 +81,36 @@ httpcimages.open("GET", "dir.php?filename=" + mixtapefolder, true);
 httpcimages.send();
 
 
-    </script>
+titles = document.getElementsByTagName("H1");
+for(var index = 0;index < titles.length;index++){
+    rainbowstring(titles[index]);    
+}
+
+googleyeyes(12);
+
+
+rainbow(document.getElementsByTagName("A"));
+
+globalurl = window.location.href.split("mixtape.html")[0];
+
+
+//globalurl = "http://192.168.0.176";
+
+codesquaresize = 100;
+
+qrcode = new QRCode(document.getElementById("qrcode"), {
+	text: globalurl,
+	width: codesquaresize,
+	height: codesquaresize,
+	colorDark : "#000000",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+});
+
+
+</script>
 </body>
 <style>
-    body{
-        background-color:black;
-    }
-    
+
 </style>
 </html>
