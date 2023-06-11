@@ -22,12 +22,14 @@
 
     <!--Stop Google:-->
     <META NAME="robots" CONTENT="noindex,nofollow">
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 </head>
 <body>
     <a href = "index.html" id = "homelink">HOME</a>
     <img id = "backgroundimage" src = "https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/pavement.png"/>
     <textarea id = "board"></textarea>
+<div id = "qrcode"></div>
 
 <script>
 
@@ -71,6 +73,19 @@ document.getElementById("board").onkeyup = function() {
 }
 
 
+codesquaresize = 100;
+marginsize = 40;
+fontsize = 12;
+//globalurl = "http://www.trashrobot.org/qrcode.html";
+globalurl = window.location.href.split("qrcode.html")[0];
+qrcode = new QRCode(document.getElementById("qrcode"), {
+	text: globalurl,
+	width: codesquaresize,
+	height: codesquaresize,
+	colorDark : "#000000",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+});
 
 </script>
 <style>
@@ -90,6 +105,12 @@ body{
     top:0px;
     overflow:hidden;
     z-index:-1;
+}
+#qrcode{
+    position:absolute;
+    top:0px;
+    right:0px;
+    z-index:1;
 }
 #homelink{
     position:absolute;
