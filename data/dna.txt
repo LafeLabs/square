@@ -2,6 +2,7 @@
     "html": [
         "README.md",
         "artist.html",
+        "board.html",
         "fashionquest.html",
         "geometron.js",
         "glyph.txt",
