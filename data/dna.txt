@@ -3,6 +3,7 @@
         "README.md",
         "artist.html",
         "board.html",
+        "board.txt",
         "fashionquest.html",
         "geometron.js",
         "glyph.txt",

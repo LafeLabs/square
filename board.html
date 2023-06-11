@@ -25,12 +25,28 @@
 
 </head>
 <body>
-    <img id = "backgroundimage" src = ""/>
+    <a href = "index.html" id = "homelink">HOME</a>
+    <img id = "backgroundimage" src = "https://raw.githubusercontent.com/LafeLabs/square/main/trashmagic/pavement.png"/>
     <textarea id = "board"></textarea>
 
 <script>
 
 board = "";
+square = 100;
+
+if(innerWidth > innerHeight){
+    square = innerHeight - 100;
+    document.getElementById("board").style.top = "50px";
+    document.getElementById("board").style.left = ((innerWidth - square)/2 + 50).toString() + "px";
+}
+else{
+    square = innerWidth - 100;
+    document.getElementById("board").style.left = "50px";
+    document.getElementById("board").style.top = ((innerHeight - square)/2).toString() + "px";    
+}
+
+document.getElementById("board").style.width  = square.toString() + "px";
+document.getElementById("board").style.height = square.toString() + "px";
 
 var httpc2 = new XMLHttpRequest();
 httpc2.onreadystatechange = function() {
@@ -55,7 +71,6 @@ document.getElementById("board").onkeyup = function() {
 }
 
 
-//document.getElementById("editbutton").click();
 
 </script>
 <style>
@@ -65,6 +80,7 @@ body{
     
 }
 #board{
+    position:absolute;
     background-color:#9f8767;
     font-family:Comic Sans MS;
 }
@@ -73,8 +89,15 @@ body{
     left:0px;
     top:0px;
     overflow:hidden;
+    z-index:-1;
 }
-
+#homelink{
+    position:absolute;
+    left:5px;
+    top:5px;
+    color:#0000ff;
+     font-family:Comic Sans MS;
+}
 @media only screen and (orientation: portrait) {
 }
 
